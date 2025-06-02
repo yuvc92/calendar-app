@@ -1,6 +1,7 @@
 import monthsData from "../constants/monthsData";
 import getHolidays from "../requests/getHolidays";
 import Month from "./Month";
+import Day from './Day';
 
 class Year {
     constructor(number, startDay) {
@@ -14,6 +15,7 @@ class Year {
         for(const item of monthsData){
             months.push(new Month(item.short, item.days));
         }
+        if(this.number % 4 === 0)months[1].days.push(new Day(29, "", ""));
         return months;
     }
     async addHolidays(){

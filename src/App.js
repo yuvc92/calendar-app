@@ -5,15 +5,24 @@ import Year from "./models/Year"
 const App = () => {
   const [sampleYear, setSampleYear] = useState(null);
 
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+  const handlePrevYear = () => setSelectedYear((y) => y - 1);
+  const handleNextYear = () => setSelectedYear((y) => y + 1);
+  const handleYearSelect = (e) => setSelectedYear(Number(e.target.value));
+
   useEffect(() => {
-  const generateData = async () => {
-    let yearData = await generateYear(2025);
-    setSampleYear(yearData);
-  };
-  generateData();
-}, []);
+    const generateData = async () => {
+      console.log(`selectedYear`, selectedYear);
+      let yearData = await generateYear(selectedYear);
+      setSampleYear(yearData);
+    };
+    generateData(selectedYear);
+  }, [selectedYear]);
   const generateYear = async (year) => {
-    const yearData = new Year(2025, 3);
+    // const date = new Date(year, monthIndex, 1);
+    const startDay = (new Date(year, 0, 1)).getDay();
+    const yearData = new Year(year, startDay-1);
     await yearData.addHolidays();
     return {
       name: year.toString(),
@@ -44,8 +53,27 @@ const App = () => {
       })
     };
   };
+
+  const yearRange = Array.from({ length: 4 }, (_, i) => 2023 + i);
   
-  return  sampleYear ? <Calendar year={sampleYear} />: <></>;
+  return  sampleYear ? 
+  <div>
+    <div className="year-controls" style={{ display: "flex", alignItems: "center", gap: "12px", justifyContent: "center", margin: "10px 0" }}>
+        <button onClick={handlePrevYear}>⏮ Previous Year</button>
+
+        <select value={selectedYear} onChange={handleYearSelect}>
+          {yearRange.map((y) => (
+            <option key={y} value={y}>{y}</option>
+          ))}
+        </select>
+
+        <button onClick={handleNextYear}>Next Year ⏭</button>
+      </div>
+
+      <Calendar year={sampleYear} />
+    </div>
+  : 
+  <></>;
 };
 
 export default App;

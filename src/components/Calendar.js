@@ -49,7 +49,7 @@ const Calendar = ({ year }) => {
         style={{
           gridTemplateColumns:
             view === "yearly"
-              ? "repeat(4, 2fr)"
+              ? "repeat(4, 1fr)"
               : view.startsWith("quarterly-")
               ? "repeat(3, 1fr)"
               : "repeat(1, 1fr)",
