@@ -5,3 +5,5 @@ class Day {
       this.color = color;
     }
 }
+
+export default Day;
