@@ -1,7 +1,7 @@
 
 async function getHolidays(year, country) {
     try {
-      const response = await fetch(`https://api.11holidays.com/v1/holidays?country=${country}&year=${year}`);
+      const response = await fetch(`/v1/holidays?country=${country}&year=${year}`);
       const data = await response.json();
     //   console.log("ApiResponse", data);
       return data;
