@@ -1,6 +1,10 @@
-[[headers]]
-  for = "/*"
-    [headers.values]
-      Access-Control-Allow-Origin = "*"
-      Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-      Access-Control-Allow-Headers = "Content-Type, Authorization"
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.11holidays.com"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
